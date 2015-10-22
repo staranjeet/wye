@@ -22,3 +22,6 @@ fake-factory==0.5.3
 
 #AutoComplete
 django-autocomplete-light==2.2.10
+
+#zinnia blog
+django-blog-zinnia

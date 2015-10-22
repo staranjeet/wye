@@ -26,4 +26,6 @@ urlpatterns = [
         ProfileView.as_view(), name='profile-page'),
     url(r'^$', HomePageView.as_view(),
         name='home-page'),
+    url(r'^weblog/', include('zinnia.urls', namespace='zinnia')),
+    url(r'^comments/', include('django_comments.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

@@ -47,3 +47,14 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         exclude = ('user', 'slug')
+
+
+class ContactUsForm(forms.Form):
+
+    name = forms.CharField(label='Your name*', required=True)
+    email = forms.EmailField(label='Your email*', required=True)
+    content = forms.CharField(label='Your message*', required=True, widget=forms.Textarea)
+    mobile_number = forms.CharField(label='Your contact number', required=False)
+    query_topic = forms.ChoiceField(label='Select Option*', required=True,
+                                    choices=(('profile', 'Profile'), ('workshop', 'Workshop'),
+                                             ('organisation', 'Organisation'), ('others', 'Other')))

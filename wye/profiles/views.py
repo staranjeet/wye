@@ -112,12 +112,12 @@ class ContactFormView(FormView):
         email_context = Context({
             'contact_name': form.cleaned_data['name'],
             'contact_email': form.cleaned_data['email'],
-            'content': form.cleaned_data['content'],
+            'comments': form.cleaned_data['comments'],
             'mobile': form.cleaned_data['mobile_number'],
             'query_topic': form.cleaned_data['query_topic']
             })
 
-        subject = "New Contact Form Submission by %s" % (form.cleaned_data['name'])
+        subject = "PythonExpress New Contact Form Submission by %s" % (form.cleaned_data['name'])
         text_body = loader.get_template(
             'email_messages/contactus/message.txt').render(email_context)
         email_body = loader.get_template(

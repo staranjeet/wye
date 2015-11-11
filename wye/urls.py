@@ -17,7 +17,7 @@ urlpatterns = [
         name='about'),
     url(r'^contact/$', ContactFormView.as_view(),
         name='contact'),
-    url(r'^thankyou/$', TemplateView.as_view(template_name='thankyou.html'),
+    url(r'^thankyou/$', TemplateView.as_view(template_name='contact.html'),
         name='thankyou'),
     url(r'^workshops_info/$', TemplateView.as_view(
         template_name='workshops_info.html',),

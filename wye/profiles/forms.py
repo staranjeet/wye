@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
+from wye.base.constants import ContactUsType
 from . import models
 
 
@@ -53,8 +54,7 @@ class ContactUsForm(forms.Form):
 
     name = forms.CharField(label='Your name*', required=True)
     email = forms.EmailField(label='Your email*', required=True)
-    content = forms.CharField(label='Your message*', required=True, widget=forms.Textarea)
+    comments = forms.CharField(label='Comments*', required=True, widget=forms.Textarea)
     mobile_number = forms.CharField(label='Your contact number', required=False)
     query_topic = forms.ChoiceField(label='Select Option*', required=True,
-                                    choices=(('profile', 'Profile'), ('workshop', 'Workshop'),
-                                             ('organisation', 'Organisation'), ('others', 'Other')))
+                                    choices=ContactUsType.CHOICES)

@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 
 from wye.base.constants import WorkshopStatus, FeedbackType
 from wye.base.emailer import send_mail
+from wye.base.custom_exceptions import Http403
 from wye.organisations.models import Organisation
 from wye.profiles.models import Profile
 from wye.regions.models import RegionalLead
@@ -75,7 +76,8 @@ class WorkshopRestrictMixin(object):
                 Profile.is_admin(self.user)):
             pass  # don't restrict lead and admin
         else:
-            raise PermissionDenied
+            raise Http403("Workshop can be requested if you register organization or you are member of some"
+                          " organization registered with Pythonexpress")
 
         if self.feedback_required:
             return self.return_response(request)

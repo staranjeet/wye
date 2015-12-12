@@ -1,5 +1,9 @@
 import json
 
+from io import BytesIO
+from PIL import Image
+
+from django.core.files.base import ContentFile
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -161,6 +165,27 @@ class Profile(models.Model):
     @classmethod
     def is_admin(cls, user):
         return user.profile.usertype.filter(slug__iexact="admin").exists()
+
+    def save(self, *args, **kwargs):
+
+        if self.mobile and self.picture:
+
+            pil_image_obj = Image.open(self.picture)
+            width, height = pil_image_obj.size
+            if width > 975 and height > 975:
+                new_image = pil_image_obj.resize((975, 975), Image.ANTIALIAS)
+
+                new_image_io = BytesIO()
+                new_image.save(new_image_io, format='JPEG', quality=100)
+
+                temp_name = self.picture.name
+                self.picture.delete(save=False)
+
+                self.picture.save(temp_name,
+                                  content=ContentFile(new_image_io.getvalue()),
+                                  save=False)
+
+        super(Profile, self).save(*args, **kwargs)
 # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 # def create_auth_token(sender, instance=None, created=False, **kwargs):
 #     if created:

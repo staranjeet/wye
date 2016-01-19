@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Access Denied | {{ block.super }}{% endblock %}
+
+{% block header %}
+    <div class="fill-theme push-2 text-center">
+        <h1 class="no-space">Ohh!</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="push-6-bottom">
+	<div class="row push-2-bottom">
+		<div class="col-sm-12 sub">
+
+		{% if message %}
+			{{message}}
+		{% else %}
+			<h2>Access denied</h2>
+			<p>You are not authorized to view this web page.</p>
+		{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
